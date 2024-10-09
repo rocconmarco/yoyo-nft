@@ -5,7 +5,6 @@ import {Script} from "forge-std/Script.sol";
 import {YoyoNft} from "../src/YoyoNft.sol";
 
 contract DeployYoyoNft is Script {
-    
     function run() external returns (YoyoNft) {
         address vrfCoordinator = vm.envAddress("VRF_COORDINATOR");
         bytes32 keyHash = vm.envBytes32("KEY_HASH");
