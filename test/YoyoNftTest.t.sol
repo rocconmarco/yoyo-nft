@@ -59,5 +59,28 @@ contract YoyoNftTest is Test {
         emit NftMinted(tokenId, USER);
 
         vrfCoordinator.fulfillRandomWordsWithOverride(1, address(yoyoNft), randomWords);
+
+        assertEq(yoyoNft.getTokenCounter(), 1);
+    }
+
+    function testRevertTokenURIGreaterThanMaxSupply() public {
+        vm.expectRevert(YoyoNft.YoyoNft__TokenIdDoesNotExist.selector);
+        yoyoNft.tokenURI(126);
+    }
+
+    function testRevertTokenURIEquals0() public {
+        vm.expectRevert(YoyoNft.YoyoNft__TokenIdDoesNotExist.selector);
+        yoyoNft.tokenURI(0);
+    }
+
+    function testRevertSetBaseURINotOwner() public {
+        string memory newBaseURI = "test";
+
+        vm.startPrank(address(324897));
+        
+        vm.expectRevert();
+        yoyoNft.setBaseURI(newBaseURI);
+
+        vm.stopPrank();
     }
 }
