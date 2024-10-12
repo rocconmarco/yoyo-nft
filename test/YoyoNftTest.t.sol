@@ -77,7 +77,7 @@ contract YoyoNftTest is Test {
         string memory newBaseURI = "test";
 
         vm.startPrank(address(324897));
-        
+
         vm.expectRevert();
         yoyoNft.setBaseURI(newBaseURI);
 
